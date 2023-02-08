@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function TodoForm(props) {
   const [input, setInput] = useState(props.edit ? props.edit.value : "");
@@ -8,6 +8,7 @@ function TodoForm(props) {
   useEffect(() => {
     inputRef.current.focus();
   });
+
   const handleChange = (e) => {
     setInput(e.target.value);
   };
@@ -19,38 +20,37 @@ function TodoForm(props) {
       id: Math.floor(Math.random() * 10000),
       text: input,
     });
-
     setInput("");
   };
 
   return (
-    <form className="todo-form" onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="todo-form">
       {props.edit ? (
         <>
           <input
-            name="text"
             placeholder="Update your item"
             value={input}
-            className="todo-input edit"
-            ref={inputRef}
             onChange={handleChange}
+            name="text"
+            ref={inputRef}
+            className="todo-input edit"
           />
-          <button className="todo-button edit" onClick={handleSubmit}>
+          <button onClick={handleSubmit} className="todo-button edit">
             Update
           </button>
         </>
       ) : (
         <>
           <input
-            name="text"
             placeholder="Add a todo"
             value={input}
+            onChange={handleChange}
+            name="text"
             className="todo-input"
             ref={inputRef}
-            onChange={handleChange}
-          />{" "}
-          <button className="todo-button" onClick={handleSubmit}>
-            Add Todo
+          />
+          <button onClick={handleSubmit} className="todo-button">
+            Add todo
           </button>
         </>
       )}
